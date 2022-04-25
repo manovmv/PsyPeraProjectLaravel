@@ -12,5 +12,6 @@ class Service
 
     public function update($profile, $data){
         $profile->update($data);
+
     }
 }
