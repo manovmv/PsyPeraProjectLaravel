@@ -43,15 +43,14 @@
                 <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="mb-3">
+            <div class="mb-3 container-fluid row">
                 @foreach($profiles as $profile)
-                    <div class="form-check">
+                    <div class="form-check col-md-2">
                         <input name="profiles[]" class="form-check-input" type="checkbox" value="{{ $profile->id}}"
                                id="profiles">
                         <label class="form-check-label" for="profiles">
                             {{ $profile->title}}
                         </label>
-
                     </div>
                 @endforeach
             </div>

@@ -13,11 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return "22222222";
-});
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::group(['namespace'=>'Doctor'],function (){
+Route::group(['namespace'=>'Doctor', 'middleware' => 'admin'],function (){
     Route::get('/backend/doctor', 'IndexController')->name('doctor.index');
     Route::post('/backend/doctor', 'StoreController')->name('doctor.store');
     Route::get('/backend/doctor/create', 'CreateController')->name('doctor.create');
@@ -27,7 +25,7 @@ Route::group(['namespace'=>'Doctor'],function (){
     Route::delete('/backend/doctor/{doc}', 'DestroyController')->name('doctor.delete');
 
 });
-Route::group(['namespace'=>'Profile'],function () {
+Route::group(['namespace'=>'Profile', 'middleware' => 'admin'],function () {
     Route::get('/backend/profile', 'IndexController')->name('profile.index');
     Route::post('/backend/profile', 'StoreController')->name('profile.store');
     Route::get('/backend/profile/create', 'CreateController')->name('profile.create');
@@ -36,3 +34,7 @@ Route::group(['namespace'=>'Profile'],function () {
     Route::patch('/backend/profile/{doc}', 'UpdateController')->name('profile.update');
     Route::delete('/backend/profile/{doc}', 'DestroyController')->name('profile.delete');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

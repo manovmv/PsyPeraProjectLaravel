@@ -42,5 +42,8 @@
             @endforeach
             </tbody>
         </table>
+        <div class="">
+            {{ $docs->withQueryString()->links() }}
+        </div>
     </div>
 @endsection
