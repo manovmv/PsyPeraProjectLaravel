@@ -30,6 +30,8 @@ class FilterRequest extends FormRequest
             'age' => 'integer',
             'is_visible' => 'integer',
             'profiles' =>'',
+            'page' => '',
+            'per_page' => ''
         ];
     }
 }

@@ -13,7 +13,7 @@ class Service
         $doctor = Doctor::create($data);
 
         $doctor->profiles()->attach($profiles);
-
+        return $doctor;
     }
 
     public function update($doc, $data){

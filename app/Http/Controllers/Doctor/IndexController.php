@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Doctor;
 use App\Http\Controllers\Controller;
 use App\Http\Filters\DoctorFilter;
 use App\Http\Requests\Doctor\FilterRequest;
+use App\Http\Resources\Dodctor\DoctorResourse;
 use App\Models\Doctor;
 
 class IndexController extends BaseController
@@ -13,11 +14,12 @@ class IndexController extends BaseController
     {
         $data = $request->validated();
 
-        $filter = app()->make(DoctorFilter::class, ['queryParams' => array_filter($data)]);
-        $docs = Doctor::filter($filter)->paginate(10);
-//        dd($doctors);
+        $page = $data['page'] ?? 1;
+        $perPage = $data['per_page'] ?? 10;
 
-//        $docs = Doctor::paginate(8);
-        return view('doctor.index', compact('docs'));
+        $filter = app()->make(DoctorFilter::class, ['queryParams' => array_filter($data)]);
+        $docs = Doctor::filter($filter)->paginate($perPage, ['*'], 'page', $page);
+        return DoctorResourse::collection($docs);
+//        return view('doctor.index', compact('docs'));
     }
 }
